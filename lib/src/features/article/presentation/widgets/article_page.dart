@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:task5_application/src/exceptions/error/not_found_page.dart';
 import 'package:task5_application/src/features/article/application/services/article_service.dart';
 import 'package:task5_application/src/features/article/presentation/states/bloc/article_bloc.dart';
 import 'package:task5_application/src/features/article/presentation/widgets/shimmer_article_annimation.dart';
 import 'package:task5_application/src/features/login/presentation/states/login_local_storage.dart';
+import 'package:task5_application/src/routers/route_names.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({super.key});
@@ -27,8 +29,7 @@ class ArticlePage extends StatelessWidget {
               return Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(
-                        left: 16, right: 16, top: 24, bottom: 16),
+                    margin: const EdgeInsets.only(left: 16, right: 16, top: 24),
                     child: FutureBuilder(
                       future: LoginLocalStorage.getUserName(),
                       builder: (context, snapshot) {
@@ -43,18 +44,39 @@ class ArticlePage extends StatelessWidget {
                           );
                         } else {
                           return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Welcome, ',
-                                style: Theme.of(context).textTheme.titleLarge,
+                              Row(
+                                children: [
+                                  Text(
+                                    'Welcome, ',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  Text(
+                                    '${snapshot.data}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(fontWeight: FontWeight.w600),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                '${snapshot.data}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(fontWeight: FontWeight.w600),
-                              )
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, RouteNames.profile);
+                                },
+                                child: Container(
+                                  width: 56,
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.10),
+                                      shape: BoxShape.circle),
+                                  child: LottieBuilder.asset(
+                                      'assets/lotties/lottie_profile.json'),
+                                ),
+                              ),
                             ],
                           );
                         }
@@ -71,15 +93,13 @@ class ArticlePage extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 8),
-                            margin:
-                                const EdgeInsets.symmetric(horizontal: 16),
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
                             width: 210,
                             height: 190,
                             decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1,
-                                  color:
-                                      Theme.of(context).colorScheme.primary),
+                                  color: Theme.of(context).colorScheme.primary),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Column(
@@ -136,19 +156,16 @@ class ArticlePage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
                                       height: 80,
                                       width: 80,
                                       child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(8),
                                         child: Image.network(
                                           articleResult.image,
                                           fit: BoxFit.cover,

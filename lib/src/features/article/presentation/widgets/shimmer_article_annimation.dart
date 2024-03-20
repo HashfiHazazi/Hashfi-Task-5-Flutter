@@ -13,15 +13,30 @@ class ShimmerArticleAnnimation extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 150,
-              height: 24,
-              margin: const EdgeInsets.only(
-                  left: 16, right: 16, top: 24, bottom: 24),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: Colors.white.withOpacity(0.50),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 150,
+                  height: 24,
+                  margin: const EdgeInsets.only(
+                      left: 16, right: 16, top: 24, bottom: 24),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.white.withOpacity(0.50),
+                  ),
+                ),
+                Container(
+                  width: 56,
+                  height: 56,
+                  margin: const EdgeInsets.only(
+                      left: 16, right: 16, top: 24, bottom: 24),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white.withOpacity(0.50),
+                  ),
+                ),
+              ],
             ),
             Expanded(
               flex: 1,
