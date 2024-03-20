@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:task5_application/src/utils/shared_preferences/login_local_storage.dart';
+import 'package:task5_application/src/modules/local_storage/login_local_storage.dart';
 import 'package:task5_application/src/routers/route_names.dart';
 
 class ProfilePage extends StatelessWidget {
