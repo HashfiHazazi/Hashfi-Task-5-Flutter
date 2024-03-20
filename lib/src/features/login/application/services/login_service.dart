@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:task5_application/src/features/login/data/repositories/login_repository.dart';
-import 'package:task5_application/src/features/login/presentation/states/login_local_storage.dart';
+import 'package:task5_application/src/utils/shared_preferences/login_local_storage.dart';
 
 class LoginService implements LoginRepository {
   static const String loginUrl = 'https://demo.treblle.com/api/v1/auth/login';

@@ -9,7 +9,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final route = RoutePages();
-  MyApp({super.key});
+  MyApp({super.key});                                  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

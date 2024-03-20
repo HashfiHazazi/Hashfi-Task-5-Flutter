@@ -6,7 +6,7 @@ import 'package:task5_application/src/exceptions/error/not_found_page.dart';
 import 'package:task5_application/src/features/article/application/services/article_service.dart';
 import 'package:task5_application/src/features/article/presentation/states/bloc/article_bloc.dart';
 import 'package:task5_application/src/features/article/presentation/widgets/shimmer_article_annimation.dart';
-import 'package:task5_application/src/features/login/presentation/states/login_local_storage.dart';
+import 'package:task5_application/src/utils/shared_preferences/login_local_storage.dart';
 import 'package:task5_application/src/routers/route_names.dart';
 
 class ArticlePage extends StatelessWidget {
