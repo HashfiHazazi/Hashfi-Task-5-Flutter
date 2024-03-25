@@ -9,10 +9,11 @@ class ToastContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      // margin: const EdgeInsets.symmetric(horizontal: 5),
       width: double.infinity,
-      height: 48,
+      height: 40,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(5),
         color: const Color(0xFFB22727),
       ),
       child: Row(
@@ -24,12 +25,15 @@ class ToastContent extends StatelessWidget {
             color: Colors.white,
           ),
           const SizedBox(
-            width: 12,
+            width: 8,
           ),
           Text(
-            toastMessage,
+            '$toastMessage cant Empty',
             style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w500),
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+            ),
           ),
         ],
       ),

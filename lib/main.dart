@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       builder: FToastBuilder(),
       title: 'Task 5 Application',
       theme: ThemeData(
+        fontFamily: 'Inter',
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF247881),
           primary: const Color(0xFF247881),

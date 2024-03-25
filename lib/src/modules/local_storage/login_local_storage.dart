@@ -34,4 +34,9 @@ class LoginLocalStorage {
     final preferences = await SharedPreferences.getInstance();
     return preferences.getString(_userPhoneNumberKey);
   }
+
+  static Future<void> clearStorage() async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
+  }
 }
