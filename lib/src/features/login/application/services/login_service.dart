@@ -11,7 +11,7 @@ class LoginService implements LoginRepository {
     try {
       Dio _dio = Dio();
       Response loginResponse = await _dio.post(loginUrl,
-          queryParameters: {'email': emailValue, 'password': passwordValue});
+          data: {'email': emailValue, 'password': passwordValue});
       print('Login Response Data: ${loginResponse.data}');
       print('Status message: ${loginResponse.data['status']}');
       if (loginResponse.statusCode == 200 &&

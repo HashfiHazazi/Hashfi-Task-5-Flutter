@@ -1,9 +1,10 @@
+// ignore_for_file: unused_field, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:task5_application/src/exceptions/error/not_found_page.dart';
-import 'package:task5_application/src/features/article/application/services/article_service.dart';
 import 'package:task5_application/src/features/article/presentation/states/bloc/article_bloc.dart';
 import 'package:task5_application/src/features/article/presentation/widgets/shimmer_article_annimation.dart';
 import 'package:task5_application/src/modules/local_storage/login_local_storage.dart';
@@ -14,13 +15,14 @@ class ArticlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ArticleBloc articleBloc =
-        ArticleBloc(articleService: ArticleService())..add(LoadArticle());
+
+    //Get articleBloc via context dependency injection
+    ArticleBloc _articleBloc = context.read<ArticleBloc>();
 
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<ArticleBloc, ArticleState>(
-          bloc: articleBloc,
+          bloc: _articleBloc,
           builder: (context, state) {
             if (state is ArticleLoading) {
               return const ShimmerArticleAnnimation();
@@ -210,8 +212,8 @@ class ArticlePage extends StatelessWidget {
                                 ],
                               ),
                               Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 10),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   articleResult.content,
                                   maxLines: 3,

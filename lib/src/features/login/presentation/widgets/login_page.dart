@@ -1,9 +1,10 @@
 // ignore_for_file: avoid_print, prefer_final_fields
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:task5_application/src/features/login/application/services/login_service.dart';
+import 'package:task5_application/src/features/login/presentation/states/bloc/login_bloc.dart';
 import 'package:task5_application/src/features/login/presentation/widgets/toast_content.dart';
-import 'package:task5_application/src/routers/route_names.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -68,16 +69,25 @@ class _LoginPageState extends State<LoginPage> {
                   color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
                 ),
                 child: TextField(
-                  cursorHeight: 18,
+                  cursorHeight: 16,
                   controller: _emailController,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     floatingLabelStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    label: const Text('email'),
                     labelStyle: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
                         color: Theme.of(context).colorScheme.secondary),
+                    label: const Text('email'),
                   ),
                 ),
               ),
@@ -92,15 +102,24 @@ class _LoginPageState extends State<LoginPage> {
                   color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
                 ),
                 child: TextField(
-                  cursorHeight: 18,
+                  cursorHeight: 16,
                   controller: _passwordController,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
+                    label: const Text('password'),
                     floatingLabelStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    label: const Text('password'),
                     labelStyle: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
                         color: Theme.of(context).colorScheme.secondary),
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -150,31 +169,43 @@ class _LoginPageState extends State<LoginPage> {
                         toastDuration: const Duration(seconds: 2),
                       );
                     }
+                    //TODO implement login service using bloc/cubit
                     final loginApi = await LoginService().fetchLogin(
                         _emailController.text, _passwordController.text);
-                    if (loginApi == true) {
-                      if (context.mounted) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => SizedBox(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: Center(
-                              child: SizedBox(
-                                height: 200,
-                                width: 200,
-                                child: Image.asset(
-                                    'assets/images/loading_annimation.gif'),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      await Future.delayed(const Duration(seconds: 3));
-                      if (context.mounted) {
-                        Navigator.pushReplacementNamed(
-                            context, RouteNames.article);
-                      }
+
+                    if (context.mounted) {
+                      //Use Login Bloc State to show login circular progress & navigate to article page
+                      LoginBloc loginBloc =
+                          LoginBloc(loginStatus: loginApi, context: context)
+                            ..add(LoadLogin());
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            BlocBuilder<LoginBloc, LoginState>(
+                          bloc: loginBloc,
+                          builder: (context, state) {
+                            if (state is LoginSuccess) {
+                              return SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    width: 200,
+                                    child: Image.asset(
+                                        'assets/images/loading_annimation.gif'),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return const SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                              );
+                            }
+                          },
+                        ),
+                      );
                     }
                     setState(() {});
                   },
