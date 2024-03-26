@@ -41,13 +41,23 @@ class ProfilePage extends StatelessWidget {
                   FutureBuilder(
                     future: LoginLocalStorage.getUserName(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      return Text(
-                        snapshot.data,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontWeight: FontWeight.w600),
-                      );
+                      if (snapshot.data == null) {
+                        return Text(
+                          'Guest User',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(fontWeight: FontWeight.w600),
+                        );
+                      } else {
+                        return Text(
+                          snapshot.data,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(fontWeight: FontWeight.w600),
+                        );
+                      }
                     },
                   ),
                 ],
@@ -73,8 +83,13 @@ class ProfilePage extends StatelessWidget {
                   FutureBuilder(
                     future: LoginLocalStorage.getUserEmail(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      return Text(snapshot.data,
-                          style: Theme.of(context).textTheme.titleLarge!);
+                      if (snapshot.data == null) {
+                        return Text('Unknown Email',
+                            style: Theme.of(context).textTheme.titleLarge!);
+                      } else {
+                        return Text(snapshot.data,
+                            style: Theme.of(context).textTheme.titleLarge!);
+                      }
                     },
                   ),
                 ],
@@ -100,8 +115,13 @@ class ProfilePage extends StatelessWidget {
                   FutureBuilder(
                     future: LoginLocalStorage.getUserPhoneNumber(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      return Text(snapshot.data,
-                          style: Theme.of(context).textTheme.titleLarge!);
+                      if (snapshot.data == null) {
+                        return Text('Unknown Phone Number',
+                            style: Theme.of(context).textTheme.titleLarge!);
+                      } else {
+                        return Text(snapshot.data,
+                            style: Theme.of(context).textTheme.titleLarge!);
+                      }
                     },
                   ),
                 ],

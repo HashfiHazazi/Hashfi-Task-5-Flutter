@@ -207,7 +207,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       );
                     }
-                    setState(() {});
                   },
                   child: const Text(
                     'LOGIN',
